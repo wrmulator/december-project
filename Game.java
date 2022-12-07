@@ -13,13 +13,13 @@ public class Game{
 
     public Game(){
         ptr.add(new Item("tooth", 1));
-        ptr.add(new Item("normal rock", 1));
-        ptr.add(new Item("basil", 2));
+        // ptr.add(new Item("normal rock", 1));
+        ptr.add(new Item("parsley", 2));
         stk.add(new Item("bone", 1));
         stk.add(new Item("quartz", 2));
         stk.add(new Item("rosemary", 2));
-        stk.add(new Item("bay leaf", 3));
-        stk.add(new Item("shiny rock", 5));
+        stk.add(new Item("saffron", 3));
+        // stk.add(new Item("shiny rock", 5));
         stk.add(new Item("frog", 3));
         plc.add("your pantry");
         plc.add("your kitchen");
