@@ -11,7 +11,7 @@ public class Game{
     private String loc;
     private int wlt = 10;
 
-    public Test(){
+    public Game(){
         ptr.add(new Item("TOOTH", 3));
         stk.add(new Item("FROG", 3));
         plc.add("your pantry");
