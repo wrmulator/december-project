@@ -81,7 +81,8 @@ public class Game{
             help();
         if (cmd.equals("cook"))
             cook();
-        if (cmd.equals("quit")){}
+        if (cmd.equals("quit"))
+            System.exit(0);
         String[] wrd = cmd.split(" ");
         if (wrd[0].equals("check")){
             if (wrd.length == 2)
@@ -136,6 +137,7 @@ public class Game{
 
     public void drink(){
         System.out.println("> I told you not to do that.");
+        System.exit(0);
     }
 
     public void take(String s){
