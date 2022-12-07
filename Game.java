@@ -12,15 +12,22 @@ public class Game{
     private int wlt = 10;
 
     public Game(){
-        ptr.add(new Item("TOOTH", 3));
-        stk.add(new Item("FROG", 3));
+        ptr.add(new Item("tooth", 1));
+        ptr.add(new Item("normal rock", 1));
+        ptr.add(new Item("basil", 2));
+        stk.add(new Item("bone", 1));
+        stk.add(new Item("quartz", 2));
+        stk.add(new Item("rosemary", 2));
+        stk.add(new Item("bay leaf", 3));
+        stk.add(new Item("shiny rock", 5));
+        stk.add(new Item("frog", 3));
         plc.add("your pantry");
         plc.add("your kitchen");
         plc.add("the shop");
         loc = plc.get(0);
         System.out.println("> Welcome to the cooking game.");
-        System.out.println("> This game was programmed with help from Gabriel Cardozo Hanley, who says hello to Mr. Morris and that you should teach us Haskell.");
-        System.out.println("> He also sent me an image of a wailing face with a Haskell logo on it.");
+        System.out.println("> This game was programmed with assistance from Gabriel Cardozo Hanley, who says hello to Mr. Morris and that you should teach us Haskell.");
+        System.out.println("");
         System.out.println("> You, the player, may act by typing commands into the console.");
         System.out.println("> Through these commands, you may move between locations and interact with lists and the items they hold.");
         System.out.println("> The three available locations are the kitchen, the pantry, and the shop.");
@@ -62,22 +69,57 @@ public class Game{
 
     public void cmd(){
         String cmd = in.nextLine();
-        if (cmd.equals("help"))
+        if (cmd.equals("drink") || cmd.equals("drink potion") || cmd.equals("ingest potion")){
+            boolean b = false;
+            for (Item e: inv){
+                if (e.nm().equals("potion"))
+                    b = true;
+            }
+            if (b)
+                drink();
+        } if (cmd.equals("help"))
             help();
+        if (cmd.equals("cook"))
+            cook();
         if (cmd.equals("quit")){}
         String[] wrd = cmd.split(" ");
         if (wrd[0].equals("check")){
-            check(wrd[1]);
+            if (wrd.length == 2)
+                check(wrd[1]);
+            else
+                System.out.println("> The 'check' command consists of two words: the command and the container.");
         } if (wrd[0].equals("go")){
             if (wrd.length == 1){
                 System.out.println("> ok");
-            } else if (wrd[1].equals("to")){
+            } else if (wrd.length == 3 && wrd[1].equals("to")){
                 go(wrd[2]);
-            } else {
+            } else if (wrd.length == 2) {
                 go(wrd[1]);
+            } else {
+                System.out.println("> The 'go' command consists of two to three words: the command, the location, and the optional preposition 'to.'");
             }
+        } if (wrd[0].equals("take")) {
+            if (wrd.length == 2)
+                take(wrd[1]);
+            else
+                System.out.println("> The 'take' command consists of two words: the command and the item.");
+        } if (wrd[0].equals("buy")) {
+            if (wrd.length == 2)
+                take(wrd[1]);
+            else
+                System.out.println("> The 'buy' command consists of two words: the command and the item.");
+        } if (wrd[0].equals("leave")) {
+            if (wrd.length == 2)
+                take(wrd[1]);
+            else
+                System.out.println("> The 'leave' command consists of two words: the command and the item.");
+        } if (wrd[0].equals("sell")) {
+            if (wrd.length == 2)
+                take(wrd[1]);
+            else
+                System.out.println("> The 'sell' command consists of two words: the command and the item.");
         }
-        System.out.println("> Invalid request.");
+        System.out.println("> Invalid command.");
         cmd();
     }
 
@@ -85,11 +127,15 @@ public class Game{
         if (loc.equals(plc.get(1))){
             while (pot.size() > 0)
                 pot.remove(0);
-            inv.add(new Item("potion", 100));
+            inv.add(new Item("potion", 20));
             System.out.println("> You have made a potion! Congratulations. Please do not ingest it.");
             System.out.println(">> 'Potion' was added to your inventory.");
             cmd();
         }
+    }
+
+    public void drink(){
+        System.out.println("> I told you not to do that.");
     }
 
     public void take(String s){
@@ -98,18 +144,22 @@ public class Game{
                 if (ptr.get(x).nm().equals(s)){
                     Item i = ptr.remove(x);
                     inv.add(i);
-                    x = ptr.size();
+                    x = ptr.size() * 2;
                     System.out.println(">> '" + i.nm() + "' was added to your inventory.");
                 }
+                if (x == ptr.size())
+                    System.out.println("> That item is not in this room or does not exist.");
             }
         } if (loc.equals(plc.get(1))){
             for (int x = 0; x < pot.size(); x ++){
                 if (ptr.get(x).nm().equals(s)){
                     Item i = pot.remove(x);
                     inv.add(i);
-                    x = pot.size();
+                    x = pot.size() * 2;
                     System.out.println(">> '" + i.nm() + "' was added to your inventory.");
                 }
+                if (x == pot.size())
+                    System.out.println("> That item is not in this room or does not exist.");
             }
         } if (loc.equals(plc.get(2))){
             for (int x = 0; x < stk.size(); x ++){
@@ -117,8 +167,10 @@ public class Game{
                     inv.add(stk.get(x));
                     wlt -= stk.get(x).prc();
                     System.out.println(">> '" + stk.get(x).nm() + "' was added to your inventory at the price of " + stk.get(x).prc() + " dabloons.");
-                    x = stk.size();
+                    x = stk.size() * 2;
                 }
+                if (x == stk.size())
+                    System.out.println("> That item is not available to buy.");
             }
         }
         cmd();
@@ -170,7 +222,7 @@ public class Game{
             System.out.println("> Here you can buy new ingredients with which to cook.");
             System.out.println("> Available items include:");
             for (Item e: stk)
-                System.out.println("> " + e.nm() + " - " + e.prc() + " dabloons");
+                System.out.println(">> " + e.nm() + " - " + e.prc() + " dabloons");
         } else
             System.out.println("> That location does not exist.");
         cmd();
@@ -183,7 +235,7 @@ public class Game{
             } else {
                 System.out.println("> Inventory contents:");
                 for (Item e: inv)
-                    System.out.println("> " + e.nm());
+                    System.out.println(">> " + e.nm());
             }
         } else if (s.equals("pantry")){
             if (loc.equals(plc.get(0))){
@@ -192,7 +244,7 @@ public class Game{
                 } else {
                     System.out.println("> Pantry contents:");
                     for (Item e: ptr)
-                        System.out.println("> " + e.nm());
+                        System.out.println(">> " + e.nm());
                 }
             } else {
                 System.out.println("> You cannot access your pantry from " + loc + ".");
@@ -204,7 +256,7 @@ public class Game{
                 } else {
                     System.out.println("> Pot contents:");
                     for (Item e: pot)
-                        System.out.println("> " + e.nm());
+                        System.out.println(">> " + e.nm());
                 }
             } else {
                 System.out.println("> You cannot access your pot from " + loc + ".");
