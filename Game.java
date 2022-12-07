@@ -81,6 +81,82 @@ public class Game{
         cmd();
     }
 
+    public void cook(){
+        if (loc.equals(plc.get(1))){
+            while (pot.size() > 0)
+                pot.remove(0);
+            inv.add(new Item("potion", 100));
+            System.out.println("> You have made a potion! Congratulations. Please do not ingest it.");
+            System.out.println(">> 'Potion' was added to your inventory.");
+            cmd();
+        }
+    }
+
+    public void take(String s){
+        if (loc.equals(plc.get(0))){
+            for (int x = 0; x < ptr.size(); x ++){
+                if (ptr.get(x).nm().equals(s)){
+                    Item i = ptr.remove(x);
+                    inv.add(i);
+                    x = ptr.size();
+                    System.out.println(">> '" + i.nm() + "' was added to your inventory.");
+                }
+            }
+        } if (loc.equals(plc.get(1))){
+            for (int x = 0; x < pot.size(); x ++){
+                if (ptr.get(x).nm().equals(s)){
+                    Item i = pot.remove(x);
+                    inv.add(i);
+                    x = pot.size();
+                    System.out.println(">> '" + i.nm() + "' was added to your inventory.");
+                }
+            }
+        } if (loc.equals(plc.get(2))){
+            for (int x = 0; x < stk.size(); x ++){
+                if (stk.get(x).nm().equals(s)){
+                    inv.add(stk.get(x));
+                    wlt -= stk.get(x).prc();
+                    System.out.println(">> '" + stk.get(x).nm() + "' was added to your inventory at the price of " + stk.get(x).prc() + " dabloons.");
+                    x = stk.size();
+                }
+            }
+        }
+        cmd();
+    }
+
+    public void leave(String s){
+        if (loc.equals(plc.get(0))){
+            for (int x = 0; x < inv.size(); x ++){
+                if (inv.get(x).nm().equals(s)){
+                    Item i = inv.remove(x);
+                    ptr.add(i);
+                    x = inv.size();
+                    System.out.println(">> '" + i.nm() + "' was added to your pantry.");
+                }
+            }
+        } if (loc.equals(plc.get(1))){
+            for (int x = 0; x < inv.size(); x ++){
+                if (inv.get(x).nm().equals(s)){
+                    Item i = inv.get(x);
+                    pot.add(inv.remove(x));
+                    x = inv.size();
+                    System.out.println(">> '" + i.nm() + "was added to your pot.");
+                }
+            }
+        } if (loc.equals(plc.get(2))){
+            for (int x = 0; x < inv.size(); x ++){
+                if (inv.get(x).nm().equals(s)){
+                    Item i = inv.remove(x);
+                    wlt += i.prc();
+                    stk.add(i);
+                    x = inv.size();
+                    System.out.println(">> '" + i.nm() + "' was removed from your inventory for a price of " + i.prc() + " dabloons.");
+                }
+            }
+        }
+        cmd();
+    }
+
     public void go(String s){
         if (s.equals("pantry")){
             loc = plc.get(0);
