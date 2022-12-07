@@ -18,7 +18,7 @@ public class Game{
         stk.add(new Item("bone", 1));
         stk.add(new Item("quartz", 2));
         stk.add(new Item("rosemary", 2));
-        stk.add(new Item("saffron", 3));
+        stk.add(new Item("saffron", 5));
         // stk.add(new Item("shiny rock", 5));
         stk.add(new Item("frog", 3));
         plc.add("your pantry");
