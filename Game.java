@@ -26,7 +26,7 @@ public class Game{
         plc.add("the shop");
         loc = plc.get(0);
         System.out.println("> Welcome to the cooking game.");
-        System.out.println("> This game was programmed with assistance from Gabriel Cardozo Hanley, who says hello to Mr. Morris and that you should teach us Haskell.");
+        System.out.println("> This game was programmed with advice from Gabriel Cardozo Hanley, who says hello to Mr. Morris and that you should teach us Haskell.");
         System.out.println("");
         System.out.println("> You, the player, interact with this game by typing commands into the console.");
         System.out.println("> Through these commands, you may move between the pantry, kitchen, and shop, and interact with the items inside.");
