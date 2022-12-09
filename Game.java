@@ -153,7 +153,7 @@ public class Game{
             System.out.println("> I told you not to do that.");
             System.exit(0);
         } else if (b && s.equals("tasty-potion")){
-            System.out.println("> Ha! Gullible.");
+            System.out.println("> I actually lied. You're not supposed to drink that, either.");
             System.exit(0);
         } else {
             System.out.println("Invalid command.");
