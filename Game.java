@@ -142,6 +142,7 @@ public class Game{
                 } else {
                     if (wlt < 0){
                         stk.add(new Item("potion", 15));
+                        wlt += 15;
                         System.out.println("You have made a potion! Congratulations!");
                         System.out.println("Unfortunately, it was confiscated by the shop to cover your debt.");
                     } else {
