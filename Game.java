@@ -18,7 +18,7 @@ public class Game{
         stk.add(new Item("bone", 1));
         stk.add(new Item("quartz", 2));
         stk.add(new Item("rosemary", 2));
-        stk.add(new Item("saffron", 5));
+        stk.add(new Item("saffron", 14));
         // stk.add(new Item("shiny rock", 5));
         stk.add(new Item("frog", 3));
         plc.add("your pantry");
@@ -71,12 +71,14 @@ public class Game{
         if (cmd.equals("cook"))
             cook();
         if (cmd.equals("quit")){}
-        if (cmd.equals("drink") || cmd.equals("drink potion") || cmd.equals("ingest potion") || cmd.equals("ingest"))
-            drink();
         //above commands are simple; all others require specification of object
         String[] wrd = cmd.split(" "); //if user input != any of the above commands, make it a list
         //in order to analyze each part (command and object)
-        if (wrd[0].equals("check")){
+        if (wrd[0].equals("drink") || wrd[0].equals("ingest")){
+            if (wrd.length == 2 && (wrd[1].equals("potion") || wrd[1].equals("taty-potion"))){
+                drink(wrd[1]);
+            }
+        } if (wrd[0].equals("check")){
             if (wrd.length == 2)
                 check(wrd[1]);
             else
@@ -120,11 +122,21 @@ public class Game{
     public void cook(){
         if (loc.equals(plc.get(1))){ //if location = kitchen
             if (pot.size() > 0){ //if pot is not empty
-                while (pot.size() > 0) //empty the pot
+                boolean tasty = false;
+                for (int x = 0; x < pot.size(); x ++){
+                    if (pot.get(x).nm().equals("saffron")) //check pot for saffron
+                        tasty = true;
+                } while (pot.size() > 0) //empty the pot
                     pot.remove(0); 
-                inv.add(new Item("potion", 20));
-                System.out.println("> You have made a potion! Congratulations. Please do not ingest it.");
-                System.out.println("> 'potion' was added to your inventory.");
+                if (tasty){
+                    inv.add(new Item("tasty-potion", 50));
+                    System.out.println("> You have made a tasty potion! Congratulations! Go ahead an dingest it.");
+                    System.out.println("> 'tasty-potion' was added to your inventory.");
+                } else {
+                    inv.add(new Item("potion", 20));
+                    System.out.println("> You have made a potion! Congratulations. Please do not ingest it.");
+                    System.out.println("> 'potion' was added to your inventory.");
+                }
             } else
                 System.out.println("> There is nothing in your pot to cook.");
         } else
@@ -132,13 +144,16 @@ public class Game{
         cmd();
         }
 
-    public void drink(){
+    public void drink(String s){
         boolean b = false; //does inventory contain potion?
         for (int x = 0; x < inv.size() && !b; x ++){
-            if (inv.get(x).nm().equals("potion"))
+            if (inv.get(x).nm().equals(s))
                 b = true;
-        } if (b){ //if potion is in inventory
+        } if (b && s.equals("potion")){ //if potion is in inventory
             System.out.println("> I told you not to do that.");
+            System.exit(0);
+        } else if (b && s.equals("tasty-potion")){
+            System.out.println("> Ha! Gullible.");
             System.exit(0);
         } else {
             System.out.println("Invalid command.");
