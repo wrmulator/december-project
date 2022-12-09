@@ -203,17 +203,21 @@ public class Game{
             for (int x = 0; x < stk.size(); x ++){
                 if (stk.get(x).nm().equals(s)){
                     b = true;
-                    Item i = stk.get(x);
-                    if (x < 5) //if item was part of original stock
-                        inv.add(stk.get(x)); //do NOT remove from stock
-                    else //if tem was sold to shop by player
-                        inv.add(stk.remove(x)); //remove from stock
-                    wlt -= i.prc();
-                    if (i.prc() == 1)
-                        System.out.println("> '" + i.nm() + "' was added to your inventory for the price of 1 dabloon.");
-                    else
-                        System.out.println("> '" + i.nm() + "' was added to your inventory for the price of " + i.prc() + " dabloons.");
-                    x = stk.size();
+                    if (s.equals("saffron") && wlt < 0){
+                        System.out.println("> Saffron cannot be bought on credit.");
+                    } else {
+                        Item i = stk.get(x);
+                        if (x < 5) //if item was part of original stock
+                            inv.add(stk.get(x)); //do NOT remove from stock
+                        else //if tem was sold to shop by player
+                            inv.add(stk.remove(x)); //remove from stock
+                        wlt -= i.prc();
+                        if (i.prc() == 1)
+                            System.out.println("> '" + i.nm() + "' was added to your inventory for the price of 1 dabloon.");
+                        else
+                            System.out.println("> '" + i.nm() + "' was added to your inventory for the price of " + i.prc() + " dabloons.");
+                        x = stk.size();
+                    }
                 }
             } if (!b)
                 System.out.println("> That item is not available to buy.");
