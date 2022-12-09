@@ -129,13 +129,26 @@ public class Game{
                 } while (pot.size() > 0) //empty the pot
                     pot.remove(0); 
                 if (tasty){
-                    inv.add(new Item("tasty-potion", 50));
-                    System.out.println("> You have made a tasty potion! Congratulations! Go ahead and ingest it.");
-                    System.out.println("> 'tasty-potion' was added to your inventory.");
+                    if (wlt < 0){
+                        stk.add(new Item("tasty-potion", 50));
+                        wlt += 50;
+                        System.out.println("> You have made a tasty potion! Congratulations!");
+                        System.out.println("> Unfortunately, it was confiscated buy the shop to cover your debt.");
+                    } else {
+                        inv.add(new Item("tasty-potion", 50));
+                        System.out.println("> You have made a tasty potion! Congratulations! Go ahead and ingest it.");
+                        System.out.println("> 'tasty-potion' was added to your inventory.");
+                    }
                 } else {
-                    inv.add(new Item("potion", 15));
-                    System.out.println("> You have made a potion! Congratulations. Please do not ingest it.");
-                    System.out.println("> 'potion' was added to your inventory.");
+                    if (wlt < 0){
+                        stk.add(new Item("potion", 15));
+                        System.out.println("You have made a potion! Congratulations!");
+                        System.out.println("Unfortunately, it was confiscated by the shop to cover your debt.");
+                    } else {
+                        inv.add(new Item("potion", 15));
+                        System.out.println("> You have made a potion! Congratulations. Please do not ingest it.");
+                        System.out.println("> 'potion' was added to your inventory.");
+                    }
                 }
             } else
                 System.out.println("> There is nothing in your pot to cook.");
@@ -235,7 +248,7 @@ public class Game{
         } if (loc.equals(plc.get(2))){ //if location = shop
             boolean c = false; //is item in stock?
             boolean b = false; //is item in inventory?
-            for (int x = 0; x < stk.size(); x ++){
+            for (int x = 5; x < stk.size(); x ++){
                 if (stk.get(x).nm().equals(s))
                     c = true;
             }
