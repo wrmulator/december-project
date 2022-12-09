@@ -75,7 +75,7 @@ public class Game{
         String[] wrd = cmd.split(" "); //if user input != any of the above commands, make it a list
         //in order to analyze each part (command and object)
         if (wrd[0].equals("drink") || wrd[0].equals("ingest")){
-            if (wrd.length == 2 && (wrd[1].equals("potion") || wrd[1].equals("taty-potion"))){
+            if (wrd.length == 2 && (wrd[1].equals("potion") || wrd[1].equals("tasty-potion"))){
                 drink(wrd[1]);
             }
         } if (wrd[0].equals("check")){
@@ -130,7 +130,7 @@ public class Game{
                     pot.remove(0); 
                 if (tasty){
                     inv.add(new Item("tasty-potion", 50));
-                    System.out.println("> You have made a tasty potion! Congratulations! Go ahead an dingest it.");
+                    System.out.println("> You have made a tasty potion! Congratulations! Go ahead and ingest it.");
                     System.out.println("> 'tasty-potion' was added to your inventory.");
                 } else {
                     inv.add(new Item("potion", 20));
