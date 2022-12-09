@@ -119,15 +119,18 @@ public class Game{
 
     public void cook(){
         if (loc.equals(plc.get(1))){ //if location = kitchen
-            while (pot.size() > 0) //empty the pot
-                pot.remove(0); 
-            inv.add(new Item("potion", 20));
-            System.out.println("> You have made a potion! Congratulations. Please do not ingest it.");
-            System.out.println("> 'potion' was added to your inventory.");
-            cmd();
+            if (pot.size() > 0){ //if pot is not empty
+                while (pot.size() > 0) //empty the pot
+                    pot.remove(0); 
+                inv.add(new Item("potion", 20));
+                System.out.println("> You have made a potion! Congratulations. Please do not ingest it.");
+                System.out.println("> 'potion' was added to your inventory.");
+            } else
+                System.out.println("> There is nothing in your pot to cook.");
         } else
             System.out.println("> You cannot cook outside of your kitchen.");
-    }
+        cmd();
+        }
 
     public void drink(){
         boolean b = false; //does inventory contain potion?
