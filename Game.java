@@ -204,7 +204,7 @@ public class Game{
                 if (stk.get(x).nm().equals(s)){
                     b = true;
                     if (s.equals("saffron") && wlt < 14){
-                        System.out.println("> Saffron cannot be bought on credit.");
+                        System.out.println("> You need more money. Saffron cannot be bought on credit.");
                     } else {
                         Item i = stk.get(x);
                         if (x < 5) //if item was part of original stock
