@@ -203,7 +203,7 @@ public class Game{
             for (int x = 0; x < stk.size(); x ++){
                 if (stk.get(x).nm().equals(s)){
                     b = true;
-                    if (s.equals("saffron") && wlt < 0){
+                    if (s.equals("saffron") && wlt < 14){
                         System.out.println("> Saffron cannot be bought on credit.");
                     } else {
                         Item i = stk.get(x);
