@@ -133,7 +133,7 @@ public class Game{
                     System.out.println("> You have made a tasty potion! Congratulations! Go ahead and ingest it.");
                     System.out.println("> 'tasty-potion' was added to your inventory.");
                 } else {
-                    inv.add(new Item("potion", 20));
+                    inv.add(new Item("potion", 15));
                     System.out.println("> You have made a potion! Congratulations. Please do not ingest it.");
                     System.out.println("> 'potion' was added to your inventory.");
                 }
