@@ -157,18 +157,22 @@ public class Game{
         }
 
     public void drink(String s){
-        boolean b = false; //does inventory contain potion?
-        for (int x = 0; x < inv.size() && !b; x ++){
-            if (inv.get(x).nm().equals(s))
-                b = true;
-        } if (b && s.equals("potion")){ //if potion is in inventory
-            System.out.println("> I told you not to do that.");
-            System.exit(0);
-        } else if (b && s.equals("tasty-potion")){
-            System.out.println("> I actually lied. You're not supposed to ingest that, either.");
-            System.exit(0);
-        } else {
-            System.out.println("Invalid command.");
+        if (s.equals("potion") || s.equals("tasty-potion")){ //object is drinkable
+            boolean b = false; //is object in inventory?
+            for (int x = 0; x < inv.size() && !b; x ++){
+                if (inv.get(x).nm().equals(s))
+                    b = true;
+            } if (b && s.equals("potion")){ //object is in inventory
+                System.out.println("> I told you not to do that.");
+                System.exit(0);
+            } else if (b && s.equals("tasty-potion")){ //object is in inventory
+                System.out.println("> I actually lied. You're not supposed to ingest that, either.");
+                System.exit(0);
+            } else { //object is not in inventory
+                System.out.println("> Invalid command.");
+            }
+        } else { //object is not drinkable
+            System.out.println("> Invalid command.");
         }
     }
 
