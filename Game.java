@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import javax.swing.event.SwingPropertyChangeSupport;
-
 public class Game{
     Scanner in = new Scanner(System.in);
     private ArrayList<Item> inv = new ArrayList<Item>(); //inventory
