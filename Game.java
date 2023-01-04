@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.swing.event.SwingPropertyChangeSupport;
+
 public class Game{
     Scanner in = new Scanner(System.in);
     private ArrayList<Item> inv = new ArrayList<Item>(); //inventory
@@ -23,15 +25,15 @@ public class Game{
         plc.add("your kitchen");
         plc.add("the shop");
         loc = plc.get(0);
-        System.out.println("> Welcome to the cooking game.");
-        System.out.println("> This game was programmed with advice from Gabriel Cardozo Hanley, who says hello to Mr. Morris and that you should teach us Haskell.");
+        System.out.println("> Welcome to a cooking game by Eleanor Hanley Cardozo.");
+        System.out.println("> This game's command-processing function was programmed with assistance from Gabriel Cardozo Hanley, who suggested the use of the 'split' function.");
+        System.out.println("> He says hello to Mr. Morris and that you should teach us Haskell.");
         System.out.println("");
-        System.out.println("> You, the player, interact with this game by typing commands into the console.");
-        System.out.println("> Through these commands, you may move between the pantry, kitchen, and shop, and interact with the items inside.");
-        System.out.println("> Use the 'help' command for more information about what you can do in your current location.");
-        System.out.println("");
-        System.out.println("> You are a cook, and you are in your pantry.");
-        System.out.println("> What shall you do?");
+        System.out.println("> You, the player, inhabit the role of a witch.");
+        System.out.println("> You interact with this game by typing commands into the console.");
+        System.out.println("> The commands at your disposal depend on your current location and its contents.");
+        System.out.println("> There are three locations in the game: your pantry, your kitchen, and the shop.");
+        System.out.println("> Use the 'help' command for more information about your current location and available commands.");
         cmd();
     }
 
@@ -68,9 +70,10 @@ public class Game{
             help();
         if (cmd.equals("cook"))
             cook();
-        if (cmd.equals("quit")){}
+        if (cmd.equals("quit"))
+            System.exit(0);
         //above commands are simple; all others require specification of object
-        String[] wrd = cmd.split(" "); //if user input != any of the above commands, make it a list
+        String[] wrd = cmd.split(" "); //if user input != any of the above commands, make it an array
         //in order to analyze each part (command and object)
         if (wrd[0].equals("drink") || wrd[0].equals("ingest")){
             if (wrd.length == 2 && (wrd[1].equals("potion") || wrd[1].equals("tasty-potion"))){
@@ -289,17 +292,29 @@ public class Game{
 
     public void go(String s){ //parameter: name of location to go
         if (s.equals("pantry")){
-            loc = plc.get(0); //current location = place 0: pantry
-            System.out.println("> You are in " + loc + ".");
-            System.out.println("> Here you can access your stored ingredients.");
+            if (loc == plc.get(0))
+                System.out.println("> You are already in " + loc + ".");
+            else {
+                loc = plc.get(0); //current location = place 0: pantry
+                System.out.println("> You are in " + loc + ".");
+                System.out.println("> Here you can access your stored ingredients.");
+            }
         } else if (s.equals("kitchen")){
-            loc = plc.get(1); //current location = place 1: kitchen
-            System.out.println("> You are in " + loc + ".");
-            System.out.println("> Here you can cook ingredients in your pot.");
+            if (loc == plc.get(1))
+                System.out.println("> You are already in " + loc + ".");
+            else {
+                loc = plc.get(1); //current location = place 1: kitchen
+                System.out.println("> You are in " + loc + ".");
+                System.out.println("> Here you can cook ingredients in your pot.");
+            }
         } else if (s.equals("shop")){
-            loc = plc.get(2); //current location = place 2: shop
-            System.out.println("> You are in " + loc + ".");
-            System.out.println("> Here you can buy new ingredients with which to cook.");
+            if (loc == plc.get(2))
+                System.out.println("> You are already in " + loc + ".");
+            else {
+                loc = plc.get(2); //current location = place 2: shop
+                System.out.println("> You are in " + loc + ".");
+                System.out.println("> Here you can buy new ingredients with which to cook.");
+            }
         } else
             System.out.println("> That location does not exist.");
         cmd();
