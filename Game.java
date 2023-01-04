@@ -15,10 +15,9 @@ public class Game{
         ptr.add(new Item("tooth", 1));
         ptr.add(new Item("parsley", 2));
         stk.add(new Item("bone", 1));
-        stk.add(new Item("quartz", 2));
-        stk.add(new Item("rosemary", 2));
-        stk.add(new Item("saffron", 14));
         stk.add(new Item("frog", 3));
+        stk.add(new Item("saffron", 14));
+        stk.add(new Item("quartz?", 4));
         plc.add("your pantry");
         plc.add("your kitchen");
         plc.add("the shop");
@@ -122,12 +121,19 @@ public class Game{
         if (loc.equals(plc.get(1))){ //if location = kitchen
             if (pot.size() > 0){ //if pot is not empty
                 boolean tasty = false;
+                boolean evil = false;
                 for (int x = 0; x < pot.size(); x ++){
+                    if (pot.get(x).nm().equals("quartz?")) //check pot for saffron
+                        evil = true;
                     if (pot.get(x).nm().equals("saffron")) //check pot for saffron
                         tasty = true;
                 } while (pot.size() > 0) //empty the pot
                     pot.remove(0); 
-                if (tasty){
+                if (evil){
+                    System.out.println("> You have made... oh, no.");
+                    System.out.println("> Your house was raided by cops and you were arrested on the charge of posession of a Schedule II controlled substance. Nice going, Mr. White.");
+                    System.exit(0);
+                } else if (tasty){
                     if (wlt < 0){
                         stk.add(new Item("tasty-potion", 50));
                         wlt += 50;
