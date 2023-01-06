@@ -61,7 +61,7 @@ public class Game{
         cmd();
     }
 
-    public void cmd(){ //method that reads input
+    public void cmd(){ //method that reads user input
         String cmd = in.nextLine();
         if (cmd.equals("help"))
             help();
