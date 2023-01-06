@@ -83,7 +83,7 @@ public class Game{
                 System.out.println("> The 'check' command consists of two words: the command and the container.");
         } if (wrd[0].equals("go")){
             if (wrd.length == 1){
-                System.out.println("> ok"); //teehee
+                System.out.println("> ok"); //game will then quit (being mean)
             } else if (wrd.length == 3 && wrd[1].equals("to")){ //grammatical form: 'go to place'
                 go(wrd[2]);
             } else if (wrd.length == 2) { //'go place;' ungrammatical but recognizable
@@ -169,10 +169,10 @@ public class Game{
             for (int x = 0; x < inv.size() && !b; x ++){
                 if (inv.get(x).nm().equals(s))
                     b = true;
-            } if (b && s.equals("potion")){ //object is in inventory
+            } if (b && s.equals("potion")){ //object (potion) is in inventory
                 System.out.println("> I told you not to do that.");
                 System.exit(0);
-            } else if (b && s.equals("tasty-potion")){ //object is in inventory
+            } else if (b && s.equals("tasty-potion")){ //object (tasty-potion) is in inventory
                 System.out.println("> I actually lied. You're not supposed to ingest that, either.");
                 System.exit(0);
             } else { //object is not in inventory
